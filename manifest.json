@@ -3,10 +3,16 @@
   "name": "机机复机机",
   "version": "1.0",
   "description": "美国留学生跑毒神器",
+  "icons": {
+    "16": "img/plane.png",
+    "64": "img/plane.png",
+    "128": "img/plane.png"
+  },
   "browser_action": {
     "default_title": "机机复机机",
     "default_popup": "popup.html"
-  }
+  },
+  "permissions": ["notifications", "tabs", "storage"]
 }
   // "background": {
   //   "scripts": ["js/background.js"],
@@ -24,11 +30,4 @@
   //   ],
   //   "js": ["js/content.js"],
   //   "run_at": "document_end"
-  // }],
-  // "permissions": ["notifications", "tabs", "storage"],
-  // "icons": {
-  //   "16": "img/icon_16.png",
-  //   "64": "img/icon_64.png",
-  //   "128": "img/icon_128.png"
-  // },
-  // 
+  // }]
