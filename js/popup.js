@@ -16,7 +16,7 @@ var MIN_DATE_ID = "min_date";
 var MAX_DATE_ID = "max_date";
 
 // Default state
-var state = true;
+var state = false;
 
 var min_date;
 var max_date;
@@ -41,9 +41,7 @@ window.onload = function () {
   // });
 
   // Init the extension when popup  
-  chrome.storage.sync.get({
-    'state': true
-  }, function (result) {
+  chrome.storage.sync.get(['state'], function (result) {
     if (result.state == STATE_RUN) {
       setButtonStop();
       chrome.browserAction.setBadgeText({
@@ -84,15 +82,18 @@ window.onload = function () {
           text: BADGE_TEXT_ON
         });
         chrome.storage.sync.set({
-          'state': true
+          'state': true,
+          'min_date': document.getElementById(MIN_DATE_ID).value,
+          'max_date': document.getElementById(MAX_DATE_ID).value
         });
         chrome.runtime.sendMessage({
           type: COMMAND_START
         });
-        min_date = new Date(document.getElementById(MIN_DATE_ID).value);
-        max_date = new Date(document.getElementById(MAX_DATE_ID).value);
-        console.log("MIN DATE: " + min_date);
-        console.log("MAX DATE: " + max_date);
+        chrome.storage.sync.get(['min_date', 'max_date'], function (result) {
+          console.log("MIN DATE: " + result.min_date);
+          console.log("MAX DATE: " + result.max_date);
+        });
+        
         break;
       case STATE_STOP:
         setButtonStart();

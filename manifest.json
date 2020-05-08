@@ -19,7 +19,7 @@
   },
   "content_scripts": [{
     "matches": [
-      "https://www.xiamenair.com/*",
+      "https://www.xiamenair.com/*"
     ],
     "js": ["js/content.js"],
     "run_at": "document_end"

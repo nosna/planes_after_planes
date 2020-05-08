@@ -53,22 +53,22 @@ function sendNotification() {
   chrome.runtime.sendMessage('', {
     type: NOTIFICATION,
     options: {
-      title: 'Delivery Availability Checker',
-      message: 'Found an available delivery window!',
-      iconUrl: 'img/icon_128.png',
+      title: 'Planes After Planes',
+      message: 'Found an available flight!',
+      iconUrl: 'img/plane.png',
       type: 'basic'
     }
   });
 }
 
 // Counter inc
-function incCounter() {
-  chrome.storage.sync.get(['succ_count'], function (result) {
-    chrome.storage.sync.set({
-      'succ_count': result.succ_count + 1
-    });
-  });
-}
+// function incCounter() {
+//   chrome.storage.sync.get(['succ_count'], function (result) {
+//     chrome.storage.sync.set({
+//       'succ_count': result.succ_count + 1
+//     });
+//   });
+// }
 
 // Run the checker when STATE_RUN
 function startChecker() {
@@ -100,9 +100,7 @@ function startChecker() {
 }
 
 // Get state result from storage
-chrome.storage.sync.get({
-  'state': true
-}, function (result) {
+chrome.storage.sync.get(['state', 'min_date', 'max_date'], function (result) {
   console.log("now status in content is: " + result.state);
   if (result.state) {
     startChecker();
