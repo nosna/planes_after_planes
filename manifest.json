@@ -12,22 +12,17 @@
     "default_title": "机机复机机",
     "default_popup": "popup.html"
   },
-  "permissions": ["notifications", "tabs", "storage"]
+  "permissions": ["notifications", "tabs", "storage"],
+  "background": {
+    "scripts": ["js/background.js"],
+    "persistant": false
+  },
+  "content_scripts": [{
+    "matches": [
+      "https://www.xiamenair.com/*",
+    ],
+    "js": ["js/content.js"],
+    "run_at": "document_end"
+  }]
 }
-  // "background": {
-  //   "scripts": ["js/background.js"],
-  //   "persistant": false
-  // },
-  // "content_scripts": [{
-  //   "matches": [
-  //     "https://*.amazon.com/gp/buy/shipoptionselect/handlers/*",
-  //     "https://*.amazon.com/afx/slotselection/*",
-  //     "https://primenow.amazon.com/checkout/enter-checkout*",
-  //     "https://primenow.amazon.co.uk/checkout/enter-checkout*",
-  //     "https://primenow.amazon.it/checkout/enter-checkout*",
-  //     "https://*.instacart.com/*",
-  //     "https://*.costco.com/*"
-  //   ],
-  //   "js": ["js/content.js"],
-  //   "run_at": "document_end"
-  // }]
+

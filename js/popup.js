@@ -12,9 +12,14 @@ var START_BUTTON_ID = "start_button";
 var ALERT_TEXT_ID = 'alert_text';
 var COUNTER_TEXT_ID = 'counter_text';
 var COMMAND_START = "command_start";
+var MIN_DATE_ID = "min_date";
+var MAX_DATE_ID = "max_date";
 
 // Default state
 var state = true;
+
+var min_date;
+var max_date;
 
 // Checkout Path
 // var amazonCheckoutPath = '/gp/buy/shipoptionselect/handlers';
@@ -84,6 +89,10 @@ window.onload = function () {
         chrome.runtime.sendMessage({
           type: COMMAND_START
         });
+        min_date = new Date(document.getElementById(MIN_DATE_ID).value);
+        max_date = new Date(document.getElementById(MAX_DATE_ID).value);
+        console.log("MIN DATE: " + min_date);
+        console.log("MAX DATE: " + max_date);
         break;
       case STATE_STOP:
         setButtonStart();
