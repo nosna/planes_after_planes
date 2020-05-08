@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "name": "机机复机机",
+  "version": "1.0",
+  "description": "美国留学生跑毒神器",
+  "icons": {
+    "16": "img/plane.png",
+    "64": "img/plane.png",
+    "128": "img/plane.png"
+  },
+  "browser_action": {
+    "default_title": "机机复机机",
+    "default_popup": "popup.html"
+  },
+  "permissions": ["notifications", "tabs", "storage"]
+}
+  // "background": {
+  //   "scripts": ["js/background.js"],
+  //   "persistant": false
+  // },
+  // "content_scripts": [{
+  //   "matches": [
+  //     "https://*.amazon.com/gp/buy/shipoptionselect/handlers/*",
+  //     "https://*.amazon.com/afx/slotselection/*",
+  //     "https://primenow.amazon.com/checkout/enter-checkout*",
+  //     "https://primenow.amazon.co.uk/checkout/enter-checkout*",
+  //     "https://primenow.amazon.it/checkout/enter-checkout*",
+  //     "https://*.instacart.com/*",
+  //     "https://*.costco.com/*"
+  //   ],
+  //   "js": ["js/content.js"],
+  //   "run_at": "document_end"
+  // }]
