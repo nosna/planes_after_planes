@@ -12,7 +12,20 @@
     "default_title": "机机复机机",
     "default_popup": "popup.html"
   },
-  "permissions": ["notifications", "tabs", "storage"]
+  "content_scripts": [
+    {
+      "matches":["https://www.xiamenair.com/*"],
+      "js":["js/content.js","js/jquery-3.1.0.min.js"]
+
+    }
+  ],
+  "background": {
+   "scripts": ["js/background.js"]
+  },
+
+  "permissions": ["notifications", "tabs", "storage",
+    "https://www.xiamenair.com/*"
+    ]
 }
   // "background": {
   //   "scripts": ["js/background.js"],

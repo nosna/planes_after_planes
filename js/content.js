@@ -17,16 +17,17 @@ var pathDetectTime = 2 * 1000;
 var foundWindow = false;
 
 // Order URL
-var costcoURL = 'costco.com';
-var instacartURL = 'instacart.com';
-var instaOrderPathURL = '/store/checkout_v3';
-var amazonURLRegex = new RegExp("[a-zA-z]+://[a-zA-z]+[.]amazon[.][^\s]*");
+//var costcoURL = 'costco.com';
+//var instacartURL = 'instacart.com';
+//var instaOrderPathURL = '/store/checkout_v3';
+var flightOrderPathURL = 'nticket.html';
+//var amazonURLRegex = new RegExp("[a-zA-z]+://[a-zA-z]+[.]amazon[.][^\s]*");
 
 // Filter rules
-const wholeFoodsFilter = '.ufss-available';
-const amazonFreshFilter = '.availableSlotLeftHighlight';
-const instacartFilter = "input[name='delivery_option']";
-const primeNowFilter = "div[data-a-input-name='delivery-window-radio'] span.a-color-base";
+const flightFilter = 'price';
+//const wholeFoodsFilter = '.ufss-available';
+//const amazonFreshFilter = '.availableSlotLeftHighlight';
+//const primeNowFilter = "div[data-a-input-name='delivery-window-radio'] span.a-color-base";
 
 // Start and page refresh listener
 chrome.runtime.onMessage.addListener(function (message) {
@@ -42,7 +43,7 @@ function checkAvailability(filter_rule) {
   const containerExist = document.querySelector(filter_rule);
   if (containerExist) {
     sendNotification();
-    incCounter();
+    //incCounter();
     return true;
   }
   return false;
@@ -53,8 +54,8 @@ function sendNotification() {
   chrome.runtime.sendMessage('', {
     type: NOTIFICATION,
     options: {
-      title: 'Delivery Availability Checker',
-      message: 'Found an available delivery window!',
+      title: 'Flight Availability Checker',
+      message: 'Found an available flight!',
       iconUrl: 'img/icon_128.png',
       type: 'basic'
     }
@@ -62,40 +63,40 @@ function sendNotification() {
 }
 
 // Counter inc
-function incCounter() {
-  chrome.storage.sync.get(['succ_count'], function (result) {
-    chrome.storage.sync.set({
-      'succ_count': result.succ_count + 1
-    });
-  });
-}
+//function incCounter() {
+  //chrome.storage.sync.get(['succ_count'], function (result) {
+    //chrome.storage.sync.set({
+      //'succ_count': result.succ_count + 1
+    //});
+  //});
+//}
 
 // Run the checker when STATE_RUN
 function startChecker() {
   window.addEventListener('load', () => {
     // Wait until instacart async complete
-    if (location.hostname.match(costcoURL) || location.hostname.match(instacartURL)) {
+    //if (location.hostname.match(costcoURL) || location.hostname.match(instacartURL)) {
       // Instacart detect path change to order page
       pathchangeMonitor = setInterval(() => {
-        if (location.pathname == instaOrderPathURL) {
+        if (location.pathname == flightOrderPathURL) {
           // clear the path detect if now is order page
           clearInterval(pathchangeMonitor);
           // Wait until async finish
           setTimeout(function () {
-            foundWindow = checkAvailability(instacartFilter);
+            foundWindow = checkAvailability(flightFilter);
           }, asyncWaitTime);
-          instaMonitor = setInterval(() => {
+          flightMonitor = setInterval(() => {
             if (!foundWindow) location.reload();
           }, refreshRate);
         }
       }, pathDetectTime);
-    } else if (amazonURLRegex.exec(window.location.href)) {
+    //} else if (amazonURLRegex.exec(window.location.href)) {
       // Amazon monitor
-      foundWindow = (checkAvailability(wholeFoodsFilter) || checkAvailability(primeNowFilter) || checkAvailability(amazonFreshFilter));
-      amazonMonitor = setInterval(() => {
-        if (!foundWindow) location.reload();
-      }, refreshRate);
-    };
+      //foundWindow = (checkAvailability(wholeFoodsFilter) || checkAvailability(primeNowFilter) || checkAvailability(amazonFreshFilter));
+      //amazonMonitor = setInterval(() => {
+        //if (!foundWindow) location.reload();
+      //}, refreshRate);
+    //};
   });
 }
 

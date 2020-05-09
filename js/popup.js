@@ -35,7 +35,7 @@ window.onload = function () {
   //   document.getElementById(ALERT_TEXT_ID).innerHTML = '<p style="color:red">Error: can\'t find schedule pages</p>';
   // });
 
-  // Init the extension when popup  
+  // Init the extension when popup
   chrome.storage.sync.get({
     'state': true
   }, function (result) {
@@ -70,7 +70,7 @@ window.onload = function () {
   //   }
   // });
 
-  // Start button onclick  
+  // Start button onclick
   document.getElementById(START_BUTTON_ID).onclick = function () {
     switch (state) {
       case STATE_RUN:
