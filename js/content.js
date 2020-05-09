@@ -43,8 +43,9 @@ chrome.runtime.onMessage.addListener(function (message) {
 
 // Using html element to check availability
 function checkAvailability(filter_rule) {
-  const containerExist = document.querySelector(filter_rule);
+  const containerExist = document.querySelectorAll(filter_rule);
   if (containerExist) {
+    console.log("1111111111");
     sendNotification();
     return true;
   }
