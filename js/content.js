@@ -8,7 +8,7 @@ var NOTIFICATION = 'notification';
 // var refreshRate = Math.trunc(Math.random() * (refreshRateEnd - refreshRateStart) + refreshRateStart);
 
 // Wait until Instacart async complete
-// var asyncWaitTime = 5 * 1000;
+var asyncWaitTime = 5 * 1000;
 
 // Instacart Path change detect time
 // var pathDetectTime = 2 * 1000;
@@ -26,6 +26,7 @@ var homeURL = "https://www.xiamenair.com/en-cn/home.html";
 var detailURL = "https://www.xiamenair.com/en-cn/nticket.html";
 
 // Filter rules
+const flightFilter = 'price';
 // const wholeFoodsFilter = '.ufss-available';
 // const amazonFreshFilter = '.availableSlotLeftHighlight';
 // const instacartFilter = "input[name='delivery_option']";
@@ -71,6 +72,9 @@ function startChecker() {
       //fill out form only
     } else if (window.location.href.indexOf(detailURL) === 0) {
       //check tickets then fill out form
+      setTimeout(function () {
+        foundWindow = checkAvailability(flightFilter);
+      }, asyncWaitTime);
     }
     // Wait until instacart async complete
     // if (location.hostname.match(costcoURL) || location.hostname.match(instacartURL)) {
