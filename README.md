@@ -17,7 +17,7 @@
 
 Q1: What is the use of this extension?
 
-A1: It replaces you refreshing webpage and looking at the screen. When it found an available delivery window it will notify you using chrome notification.
+A1: It replaces you refreshing webpage and looking at the screen. When it found an available flight it will notify you using chrome notification.
 
 
 Q2: Will this extension cause my account to be blocked?
@@ -27,8 +27,3 @@ A2: Again, it just replaces you refreshing webpage and looking at the screen. An
 Q3: Is there any security problem when I use this extension?
 
 A3: This is just a refresh tool and finds a specific element to detect if it currently has an available delivery window. Therefore, it does not have a security problem.
-
-Q4: Will this be unfair to other Amazon Fresh, Whole Foods or Costco users?
-A4: This is an ethical issue. But please DO NOT abuse this extension.
-
-
