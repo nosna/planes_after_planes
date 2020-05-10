@@ -1,4 +1,4 @@
-# Delivery Availability Checker
+# Planes after planes
 
 ![logo](https://xswlme.github.io/img/logo.png)
 
