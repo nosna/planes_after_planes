@@ -1,6 +1,6 @@
 # Planes after planes
 
-![logo](https://xswlme.github.io/img/logo.png)
+![logo](https://github.com/nosna/planes_after_planes/blob/master/img/plane.png)
 
 ### A Chrome Extension that help you find the Amazon Prime Now (US, UK, Italy), Smile, Fresh, Whole Foods, Costco (same day) and Instacart delivery windows 
 
