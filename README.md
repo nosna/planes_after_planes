@@ -9,12 +9,8 @@
 
 ## #  How to use
 
-https://xswlme.github.io/101/
+TLDR; **go to https://www.xiamenair.com/en-cn/nticket.html and leave the page in the chrome tab**. You can switch to other tabs, the monitor is still running in the background. To start the extension, click on the flight icon on the top right corner of the screen, fill in the desired time peroid and click start to search for flights within that time period.
 
-TLDR; Add your items from Amazon, Costco (same day) or Instacart , then **go to checkout and leave the shipping schedule page in the chrome tab**. You can switch to other tabs, the monitor is still running in the background.
-
-
-![](https://xswlme.github.io/img/banner.jpg)
 
 
 ## # FAQ
