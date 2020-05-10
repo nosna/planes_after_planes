@@ -12,9 +12,15 @@ var START_BUTTON_ID = "start_button";
 var ALERT_TEXT_ID = 'alert_text';
 var COUNTER_TEXT_ID = 'counter_text';
 var COMMAND_START = "command_start";
+var MIN_DATE_ID = "min_date";
+var MAX_DATE_ID = "max_date";
+
 
 // Default state
-var state = true;
+var state = false;
+
+var min_date;
+var max_date;
 
 // Checkout Path
 // var amazonCheckoutPath = '/gp/buy/shipoptionselect/handlers';
@@ -36,9 +42,7 @@ window.onload = function () {
   // });
 
   // Init the extension when popup
-  chrome.storage.sync.get({
-    'state': true
-  }, function (result) {
+  chrome.storage.sync.get(['state'], function (result) {
     if (result.state == STATE_RUN) {
       setButtonStop();
       chrome.browserAction.setBadgeText({
@@ -51,6 +55,7 @@ window.onload = function () {
       });
     }
   });
+
 
   // Counter init
   // chrome.storage.sync.get(['count_init'], function (result) {
@@ -79,11 +84,18 @@ window.onload = function () {
           text: BADGE_TEXT_ON
         });
         chrome.storage.sync.set({
-          'state': true
+          'state': true,
+          'min_date': document.getElementById(MIN_DATE_ID).value,
+          'max_date': document.getElementById(MAX_DATE_ID).value
         });
         chrome.runtime.sendMessage({
           type: COMMAND_START
         });
+        chrome.storage.sync.get(['min_date', 'max_date'], function (result) {
+          console.log("MIN DATE: " + result.min_date);
+          console.log("MAX DATE: " + result.max_date);
+        });
+
         break;
       case STATE_STOP:
         setButtonStart();

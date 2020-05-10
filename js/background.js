@@ -12,7 +12,6 @@ chrome.runtime.onMessage.addListener(function (message) {
     case NOTIFICATION:
       chrome.notifications.create('', message.options);
       notificationSound.play();
-      console.log("12345")
       break;
     case COMMAND_START:
       chrome.tabs.query({}, function (tabs) {

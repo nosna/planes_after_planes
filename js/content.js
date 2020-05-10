@@ -1,33 +1,19 @@
 // Messages
 var CHECKER_START = "checker_start";
 var NOTIFICATION = 'notification';
-
-// Refresh the page rate
-var refreshRateStart = 15 * 1000;
-var refreshRateEnd = 20 * 1000;
-var refreshRate = Math.trunc(Math.random() * (refreshRateEnd - refreshRateStart) + refreshRateStart);
+var COMMAND_START = 'command_start';
 
 // Wait until Instacart async complete
-var asyncWaitTime = 5 * 1000;
-
-// Instacart Path change detect time
-var pathDetectTime = 2 * 1000;
+var asyncWaitTime = 1 * 1000;
 
 // If Delivery window found
 var foundWindow = false;
 
-// Order URL
-//var costcoURL = 'costco.com';
-//var instacartURL = 'instacart.com';
-//var instaOrderPathURL = '/store/checkout_v3';
-var flightOrderPathURL = 'nticket.html';
-//var amazonURLRegex = new RegExp("[a-zA-z]+://[a-zA-z]+[.]amazon[.][^\s]*");
+var homeURL = "https://www.xiamenair.com/en-cn/home.html";
+var detailURL = "https://www.xiamenair.com/en-cn/nticket.html";
 
 // Filter rules
-const flightFilter = 'price';
-//const wholeFoodsFilter = '.ufss-available';
-//const amazonFreshFilter = '.availableSlotLeftHighlight';
-//const primeNowFilter = "div[data-a-input-name='delivery-window-radio'] span.a-color-base";
+const flightFilter = '.tax-included';
 
 // Start and page refresh listener
 chrome.runtime.onMessage.addListener(function (message) {
@@ -43,7 +29,6 @@ function checkAvailability(filter_rule) {
   const containerExist = document.querySelector(filter_rule);
   if (containerExist) {
     sendNotification();
-    //incCounter();
     return true;
   }
   return false;
@@ -54,58 +39,92 @@ function sendNotification() {
   chrome.runtime.sendMessage('', {
     type: NOTIFICATION,
     options: {
-      title: 'Flight Availability Checker',
+      title: 'Planes After Planes',
       message: 'Found an available flight!',
-      iconUrl: 'img/icon_128.png',
+      iconUrl: 'img/plane.png',
       type: 'basic'
     }
   });
 }
 
-// Counter inc
-//function incCounter() {
-  //chrome.storage.sync.get(['succ_count'], function (result) {
-    //chrome.storage.sync.set({
-      //'succ_count': result.succ_count + 1
-    //});
-  //});
-//}
-
 // Run the checker when STATE_RUN
-function startChecker() {
+function startChecker(min_date, max_date) {
   window.addEventListener('load', () => {
-    // Wait until instacart async complete
-    //if (location.hostname.match(costcoURL) || location.hostname.match(instacartURL)) {
-      // Instacart detect path change to order page
-      pathchangeMonitor = setInterval(() => {
-        if (location.pathname == flightOrderPathURL) {
-          // clear the path detect if now is order page
-          clearInterval(pathchangeMonitor);
-          // Wait until async finish
-          setTimeout(function () {
-            foundWindow = checkAvailability(flightFilter);
-          }, asyncWaitTime);
-          flightMonitor = setInterval(() => {
-            if (!foundWindow) location.reload();
-          }, refreshRate);
+    if (window.location.href == detailURL) {
+      //fill out form
+      setTimeout(function () {
+        document.querySelector(".vue-city-picker input").focus();
+      }, 2000);
+      setTimeout(function () {
+        document.querySelector(".vcp-panel span").nextElementSibling.click();
+      }, 2000);
+      setTimeout(function () {
+        document.querySelectorAll(".z-hot li")[4].click();
+      }, 2000);
+
+      setTimeout(function () {
+        document.querySelectorAll(".vue-city-picker input")[1].focus();
+      }, 2000);
+      setTimeout(function () {
+        document.querySelectorAll(".z-hot li")[17].click();
+      }, 2000);
+
+      while (new Date(document.querySelectorAll(".day-cell")[83].attributes[1].value) < new Date(min_date)) {
+        document.querySelectorAll(".datepicker-nextBtn")[0].click();
+      }
+
+      var span_group = document.querySelectorAll(".day-cell");
+      for (var i = 0; i < span_group.length; i++) {
+        if (span_group[i].attributes[1].value == min_date) {
+          span_group[i].click();
+          break;
         }
-      }, pathDetectTime);
-    //} else if (amazonURLRegex.exec(window.location.href)) {
-      // Amazon monitor
-      //foundWindow = (checkAvailability(wholeFoodsFilter) || checkAvailability(primeNowFilter) || checkAvailability(amazonFreshFilter));
-      //amazonMonitor = setInterval(() => {
-        //if (!foundWindow) location.reload();
-      //}, refreshRate);
-    //};
-  });
+      }
+      setTimeout(function () {
+        document.getElementsByClassName("right search J_Search")[0].click();
+      }, 2000);
+
+      //check
+      setTimeout(function () {
+        foundWindow = checkAvailability(flightFilter);
+      }, asyncWaitTime);
+      setTimeout(function () {
+        chrome.runtime.sendMessage('', {
+          type: COMMAND_START
+        })
+      }, 10000);
+      //
+    } else if (window.location.href.indexOf(detailURL) == 0) {
+      //check
+      setTimeout(function () {
+        foundWindow = checkAvailability(flightFilter);
+      }, asyncWaitTime);
+
+      var curr_date = document.querySelectorAll(".ing")[3].innerText.substring(0, 10);
+      if (curr_date == max_date) {
+        location.href = detailURL;
+        location.reload();
+      }
+      setTimeout(function () {
+          document.querySelectorAll(".ing")[4].click();
+        }, 8000);
+
+        setTimeout(function () {
+        chrome.runtime.sendMessage('', {
+          type: COMMAND_START
+        })
+      }, 10000);
+    }
+    }
+  );
 }
 
 // Get state result from storage
-chrome.storage.sync.get({
-  'state': true
-}, function (result) {
+chrome.storage.sync.get(['state', 'min_date', 'max_date'], function (result) {
   console.log("now status in content is: " + result.state);
+  console.log("min date: " + result.min_date);
+  console.log("max date: " + result.max_date);
   if (result.state) {
-    startChecker();
+    startChecker(result.min_date, result.max_date);
   }
 });

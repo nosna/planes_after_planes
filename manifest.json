@@ -1,31 +1,34 @@
 {
   "manifest_version": 2,
-  "name": "机机复机机",
+  "name": "planes_after_planes",
   "version": "1.0",
-  "description": "美国留学生跑毒神器",
+  "description": "nonestop to get ur ticket",
   "icons": {
     "16": "img/plane.png",
     "64": "img/plane.png",
     "128": "img/plane.png"
   },
   "browser_action": {
-    "default_title": "机机复机机",
+    "default_title": "planes_after_planes",
     "default_popup": "popup.html"
   },
-  "content_scripts": [
-    {
-      "matches":["https://www.xiamenair.com/*"],
-      "js":["js/content.js","js/jquery-3.1.0.min.js"]
 
-    }
-  ],
+
   "background": {
-   "scripts": ["js/background.js"]
+   "scripts": ["js/background.js"],
+   "persistant": false
   },
 
   "permissions": ["notifications", "tabs", "storage",
     "https://www.xiamenair.com/*"
-    ]
+    ],
+
+  "content_scripts": [{
+    "matches": [
+      "https://www.xiamenair.com/*"
+    ],
+    "js": ["js/content.js"]
+  }]
 }
   // "background": {
   //   "scripts": ["js/background.js"],
