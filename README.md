@@ -26,4 +26,4 @@ A2: Again, it just replaces you refreshing webpage and looking at the screen. An
 
 Q3: Is there any security problem when I use this extension?
 
-A3: This is just a refresh tool and finds a specific element to detect if it currently has an available delivery window. Therefore, it does not have a security problem.
+A3: This is just a refresh tool and finds a specific element to detect if it currently has an available flight. Therefore, it does not have a security problem.
