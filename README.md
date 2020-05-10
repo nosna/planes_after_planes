@@ -2,7 +2,7 @@
 
 ![logo](https://github.com/nosna/planes_after_planes/blob/master/img/plane.png)
 
-### A Chrome Extension that help you find the Amazon Prime Now (US, UK, Italy), Smile, Fresh, Whole Foods, Costco (same day) and Instacart delivery windows 
+### A Chrome Extension that help you find available Xiamen Airlines flights. Xiamen Airlines is one of three airlines that have flights to China.
 
 ### **Stay Home Stay Safe**
 
