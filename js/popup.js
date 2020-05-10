@@ -9,6 +9,7 @@ var BUTTON_START = 'Start';
 var BUTTON_STOP = 'Stop';
 
 var START_BUTTON_ID = "start_button";
+var STORED_RESULT_BUTTON_ID = "stored_result_button";
 var ALERT_TEXT_ID = 'alert_text';
 var COUNTER_TEXT_ID = 'counter_text';
 var COMMAND_START = "command_start";
@@ -72,6 +73,11 @@ window.onload = function () {
   //     });
   //   }
   // });
+
+  document.getElementById(STORED_RESULT_BUTTON_ID).onclick = function() {
+    window.location.href="./storedRes.html";  
+    window.open("./storedRes.html");
+  }
 
   // Start button onclick  
   document.getElementById(START_BUTTON_ID).onclick = function () {

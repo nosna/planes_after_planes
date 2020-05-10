@@ -50,12 +50,18 @@
 	background: #f7f7f7;
   }
   
+  #stored_result_button {
+	background: #f7f7f7;
+	font-size: 12px;
+	margin-top: 5px;
+  }  
+
   header {
 	display: flex;
 	font-family: 'Londrina Solid', Lato, sans-serif;
 	font-size: 17px;
 	padding: 5px 15px 10px;
-	background-color: #2dbafc;
+	background-color: #2dbdff;
 	color: #fff;
 	align-items: center;
 	z-index: 120000;
